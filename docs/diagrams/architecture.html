@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#eef1f6; }
+  #canvas {
+    width:1360px; background:#ffffff; padding:56px 60px 48px;
+    font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:#0f172a;
+  }
+  .title { font-size:34px; font-weight:800; letter-spacing:-.6px; }
+  .subtitle { font-size:19px; color:#64748b; margin-top:8px; font-weight:500; }
+  .rule { height:4px; width:64px; background:#4f46e5; border-radius:3px; margin:18px 0 34px; }
+
+  .stage { display:flex; justify-content:center; }
+  .card { border-radius:16px; padding:22px 26px; box-shadow:0 1px 3px rgba(15,23,42,.08); }
+  .lbl { font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; }
+  .h { font-size:24px; font-weight:800; letter-spacing:-.3px; margin-top:4px; }
+  .d { font-size:16px; line-height:1.45; color:#475569; margin-top:8px; }
+
+  .you { background:#0f172a; color:#fff; border-radius:14px; padding:18px 30px;
+    font-size:20px; font-weight:600; text-align:center; }
+  .you span { color:#93c5fd; }
+
+  .orch { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; width:900px; text-align:center; }
+  .orch .lbl { color:#c7d2fe; }
+  .orch .h { font-size:27px; }
+  .orch .d { color:#e0e7ff; }
+
+  .arrow { display:flex; flex-direction:column; align-items:center; margin:14px 0; }
+  .arrow .line { width:2px; height:20px; background:#94a3b8; }
+  .arrow .tri { color:#94a3b8; font-size:20px; line-height:1; margin-top:-4px; }
+  .arrow .cap { font-size:14px; color:#64748b; font-weight:600; margin-top:6px; }
+
+  .agents { display:flex; gap:22px; justify-content:center; }
+  .agent { width:378px; background:#f8fafc; border:1.5px solid #e2e8f0; }
+  .agent .lbl { color:#0ea5e9; }
+  .agent .h { font-size:21px; }
+  .tier { display:inline-block; font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
+    padding:3px 10px; border-radius:999px; margin-top:10px; }
+  .tier.j { background:#e0f2fe; color:#0369a1; }
+  .tier.v { background:#ede9fe; color:#6d28d9; }
+  .tier.m { background:#dcfce7; color:#15803d; }
+  .chips { margin-top:12px; display:flex; flex-wrap:wrap; gap:7px; }
+  .chip { font-size:13px; font-weight:600; padding:4px 10px; border-radius:8px;
+    border:1.5px solid #cbd5e1; color:#334155; background:#fff; }
+  .chip.nc { border-color:#7c3aed; color:#6d28d9; background:#f5f3ff; }
+  .chip.nc::before { content:'★ '; color:#7c3aed; }
+
+  .bottom { display:flex; gap:26px; justify-content:center; align-items:stretch; }
+  .core { flex:1; max-width:640px; background:#ecfdf5; border:1.5px solid #a7f3d0; }
+  .core .lbl { color:#059669; }
+  .core .parts { display:flex; flex-direction:column; gap:10px; margin-top:14px; }
+  .part { background:#fff; border:1px solid #d1fae5; border-radius:10px; padding:11px 14px; }
+  .part b { font-size:16px; } .part span { font-size:14px; color:#64748b; }
+  .rest { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:120px; }
+  .rest .k { font-size:26px; color:#94a3b8; }
+  .rest .t { font-size:13px; font-weight:700; color:#475569; text-align:center; margin-top:4px; letter-spacing:.3px; }
+  .rest .v { font-size:12px; color:#94a3b8; text-align:center; margin-top:3px; font-family:ui-monospace,monospace; }
+  .blotato { flex:1; max-width:520px; background:#fffbeb; border:1.5px solid #fde68a; }
+  .blotato .lbl { color:#d97706; }
+  .blotato ul { margin-top:12px; list-style:none; }
+  .blotato li { font-size:16px; color:#78350f; padding:6px 0 6px 24px; position:relative; }
+  .blotato li::before { content:'✦'; color:#f59e0b; position:absolute; left:0; }
+
+  .finish { display:flex; gap:16px; justify-content:center; align-items:center; margin-top:6px; }
+  .fin { padding:16px 22px; border-radius:12px; font-size:16px; font-weight:700; text-align:center; }
+  .fin.qc { background:#eef2ff; color:#4338ca; border:1.5px solid #c7d2fe; }
+  .fin.hu { background:#fff1f2; color:#be123c; border:1.5px solid #fecdd3; }
+  .fin.cal { background:#0f172a; color:#fff; }
+  .finish .go { font-size:22px; color:#94a3b8; }
+  .fin small { display:block; font-weight:500; font-size:13px; margin-top:3px; opacity:.85; }
+
+  .legend { margin-top:34px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 22px; }
+  .legend .lh { font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#64748b; }
+  .legend .rows { display:flex; gap:30px; margin-top:12px; flex-wrap:wrap; }
+  .lrow { font-size:15px; color:#334155; }
+  .lrow b { display:block; font-size:14px; color:#0f172a; margin-bottom:3px; }
+  .note { margin-top:14px; font-size:14.5px; color:#475569; line-height:1.5; }
+  .note b { color:#6d28d9; }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="title">How the system is organized</div>
+  <div class="subtitle">One orchestrator directs specialist agents through a write → grade → visual → schedule pipeline. Nothing publishes without you.</div>
+  <div class="rule"></div>
+
+  <div class="stage"><div class="you">YOU &nbsp;·&nbsp; <span>"Post something about X on LinkedIn and Instagram."</span></div></div>
+
+  <div class="arrow"><div class="line"></div><div class="tri">▼</div></div>
+
+  <div class="stage">
+    <div class="card orch">
+      <div class="lbl">The brain · runs in Claude Code OR opencode</div>
+      <div class="h">ORCHESTRATOR</div>
+      <div class="d">Asks you one question at a time → routes the work → runs the <b>final quality check</b> → holds the gate to human approval. Never free-writes copy.</div>
+      <div class="chips" style="justify-content:center;margin-top:14px;">
+        <span class="chip">Claude Opus</span>
+        <span class="chip nc">GLM-5</span>
+        <span class="chip nc">MiniMax-M2.5</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="line"></div><div class="tri">▼</div><div class="cap">delegates isolated work — in parallel, cheapest capable model per job</div></div>
+
+  <div class="agents">
+    <div class="card agent">
+      <div class="lbl">Subagent</div>
+      <div class="h">copywriter</div>
+      <div class="d">Picks a proven hook, briefs Blotato to write the copy, self-grades it, loops to 8+/10.</div>
+      <span class="tier j">Judgment tier</span>
+      <div class="chips"><span class="chip">Claude Sonnet</span><span class="chip nc">GLM-4.7</span><span class="chip nc">MiniMax-M2.5</span></div>
+    </div>
+    <div class="card agent">
+      <div class="lbl">Subagent</div>
+      <div class="h">visual-producer</div>
+      <div class="d">Picks a template, injects your brand, renders the carousel/image/video via Blotato.</div>
+      <span class="tier v">Visual / judgment</span>
+      <div class="chips"><span class="chip">Claude Opus</span><span class="chip nc">GLM-4.7</span></div>
+    </div>
+    <div class="card agent">
+      <div class="lbl">Subagent</div>
+      <div class="h">scheduler</div>
+      <div class="d">Runs the pre-publish check and books the piece into the calendar. Never posts directly.</div>
+      <span class="tier m">Mechanical tier</span>
+      <div class="chips"><span class="chip">Claude Haiku</span><span class="chip nc">GLM-4.7-flash</span><span class="chip nc">DeepSeek-flash</span></div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="line"></div><div class="tri">▼</div><div class="cap">every agent reads the ONE shared core · the core talks to Blotato over REST</div></div>
+
+  <div class="bottom">
+    <div class="card core">
+      <div class="lbl">Shared core · single source of truth</div>
+      <div class="h" style="color:#065f46;">The methodology both runtimes read</div>
+      <div class="parts">
+        <div class="part"><b>_base/</b> &nbsp;<span>voice · platform specs · publishing · transport · accounts</span></div>
+        <div class="part"><b>scripts/blotato.py</b> &nbsp;<span>direct REST client to Blotato</span></div>
+        <div class="part"><b>9 × SKILL.md</b> &nbsp;<span>the reusable playbooks (write, grade, visual, schedule…)</span></div>
+      </div>
+    </div>
+    <div class="rest">
+      <div class="k">⇄</div>
+      <div class="t">REST</div>
+      <div class="v">write · visual<br>source · post</div>
+    </div>
+    <div class="card blotato">
+      <div class="lbl">The platform · does the heavy lifting</div>
+      <div class="h" style="color:#92400e;">BLOTATO</div>
+      <ul>
+        <li>Writes the actual post copy</li>
+        <li>Renders visuals (template API)</li>
+        <li>Extracts sources (URL / video → text)</li>
+        <li>Hosts media &amp; holds the calendar</li>
+        <li>Publishes at the scheduled time</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="line"></div><div class="tri">▼</div></div>
+
+  <div class="finish">
+    <div class="fin qc">Orchestrator QC<small>loops until ≥90% vs the guidelines</small></div>
+    <span class="go">→</span>
+    <div class="fin hu">HUMAN APPROVAL<small>you say yes before anything is booked</small></div>
+    <span class="go">→</span>
+    <div class="fin cal">Blotato calendar<small>scheduled · logged with live URL</small></div>
+  </div>
+
+  <div class="legend">
+    <div class="lh">Model routing — cheapest capable model per job</div>
+    <div class="rows">
+      <div class="lrow"><b>Mechanical</b>Script I/O, polling, logging<br><span style="color:#15803d;font-weight:700;">Haiku · GLM-4.7-flash · DeepSeek-flash</span></div>
+      <div class="lrow"><b>Judgment</b>Copy, grading, voice QC<br><span style="color:#0369a1;font-weight:700;">Sonnet · GLM-4.7 · MiniMax-M2.5</span></div>
+      <div class="lrow"><b>Orchestration + final QC</b>Routing, decisions, quality gate<br><span style="color:#4338ca;font-weight:700;">Opus · GLM-5 · MiniMax-M2.5</span></div>
+    </div>
+    <div class="note"><b>★ = non-Claude, cost-efficient.</b> In opencode you assign each agent a model from any configured provider — so the mechanical and judgment tiers can run on efficient models like <b>MiniMax</b> or <b>GLM</b> while you keep a top-tier model only where it matters. In Claude Code the same three tiers map to Opus / Sonnet / Haiku.</div>
+  </div>
+</div>
+</body>
+</html>
