@@ -51,8 +51,8 @@ Not every step needs an expensive model. This kit sorts work into three tiers:
 | Tier | What it's for | Good models |
 |---|---|---|
 | **Mechanical** | script calls, polling, logging | Claude Haiku · **GLM-4.7-flash** · **DeepSeek-flash** |
-| **Judgment** | copywriting, grading, voice checks | Claude Sonnet · **GLM-4.7** · **MiniMax-M2.5** |
-| **Orchestration + final QC** | routing, decisions, the quality gate | Claude Opus · **GLM-5** · **MiniMax-M2.5** |
+| **Judgment** | copywriting, grading, voice checks | Claude Sonnet · **GLM-4.7** · **MiniMax-M3** |
+| **Orchestration + final QC** | routing, decisions, the quality gate | Claude Opus · **GLM-5** · **MiniMax-M3** |
 
 The point: **in opencode you can run most of the pipeline on cost-efficient, non-Claude models
 like [MiniMax](https://www.minimax.io) and [GLM (Z.ai)](https://z.ai)** — and only spend on a
@@ -203,7 +203,7 @@ Real model IDs available in opencode (via the `minimax` and `openrouter` provide
 
 | Provider | Example IDs |
 |---|---|
-| **MiniMax** | `minimax/MiniMax-M2.5` · `minimax/MiniMax-M2.5-highspeed` |
+| **MiniMax** | `minimax/MiniMax-M3` |
 | **GLM (Z.ai)** | `openrouter/z-ai/glm-5` · `openrouter/z-ai/glm-4.7` · `openrouter/z-ai/glm-4.7-flash` |
 | **DeepSeek** | `deepseek/deepseek-v4-pro` · `deepseek/deepseek-v4-flash` |
 | **Kimi (Moonshot)** | `openrouter/moonshotai/kimi-k2.7-code` |
