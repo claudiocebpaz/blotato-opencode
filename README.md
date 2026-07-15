@@ -110,6 +110,11 @@ pattern covers two X accounts, two LinkedIn accounts, an Instagram business prof
 > first-person for you, brand voice for the company) so the same topic goes out sounding right on
 > each account, not copy-pasted.
 
+> **Note — multi-brand is possible.** This kit ships single-brand for simplicity, but the same
+> architecture extends to **multiple brands**: one directory per brand (its own `brand-brief.md`,
+> `branding.md`, and accounts) with the orchestrator routing per brand. Not wired here, but it's a
+> natural next step.
+
 ## Repository structure
 
 Every directory has one job. `_base/` + `scripts/` + the 9 `SKILL.md` files are the **shared
