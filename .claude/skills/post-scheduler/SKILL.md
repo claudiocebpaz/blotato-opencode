@@ -13,7 +13,7 @@ job. By the time a post reaches you, it's been graded and approved. **Nothing pu
 immediately: everything is scheduled.**
 
 > **Por qué API directa:** este proyecto usa `scripts/blotato.py` (requiere `BLOTATO_API_KEY`
-> en `scripts/.env`) para ser más rápido y funcionar igual en Claude Code, Desktop y Cowork,
+> en `.env` en la raíz del proyecto) para ser más rápido y funcionar igual en Claude Code, Desktop y Cowork,
 > sin depender del MCP.
 
 ## When to Activate
@@ -78,9 +78,9 @@ Ver y editar en https://my.blotato.com/scheduler
 Para fallas parciales (3 de 5 ok), reportá éxito y falla por separado. No hagas rollback.
 
 ### Step 6: Fallback (sin API key)
-Si `python scripts/blotato.py whoami` falla o no hay `scripts/.env`:
+Si `python scripts/blotato.py whoami` falla o no hay `.env` en la raíz:
 ```
-Blotato no está conectado (falta la API key en scripts/.env). Guardo el post para pegarlo a mano.
+Blotato no está conectado (falta la API key en .env). Guardo el post para pegarlo a mano.
 ```
 Guardá en `posts/<slug>-ready-to-paste.txt`:
 ```
@@ -94,7 +94,7 @@ Agendar para: [hora o "posteo manual"]
 Si es multi-plataforma, un bloque por plataforma. Decile el path al usuario. Nunca falles el flujo.
 
 ## Manejo de errores
-- **401/403** → la API key falla o expiró. Avisá para revisar `scripts/.env` o regenerar la key.
+- **401/403** → la API key falla o expiró. Avisá para revisar `.env` (raíz) o regenerar la key.
 - **429** → rate limit; esperá los segundos que dice el mensaje y reintentá una vez.
 - **`--next-free-slot` sin slots** → no hay slots para esa plataforma/cuenta. Avisá para crear
   slots (`python scripts/blotato.py slots-create ...`) o usar `--schedule` con hora exacta.

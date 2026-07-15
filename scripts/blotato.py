@@ -2,7 +2,7 @@
 """
 Blotato API client (direct REST, no MCP) for the social-media multi-agent project.
 
-Auth: set BLOTATO_API_KEY (env var or scripts/.env). The key may end in '=' — keep it.
+Auth: set BLOTATO_API_KEY (env var or .env at the project root). The key may end in '=' — keep it.
 Base: https://backend.blotato.com/v2   Header: blotato-api-key: <key>
 Everything is async: create -> poll -> use result URLs.
 
@@ -29,15 +29,21 @@ BASE = "https://backend.blotato.com/v2"
 def _load_key():
     key = os.environ.get("BLOTATO_API_KEY")
     if not key:
-        env_path = os.path.join(os.path.dirname(__file__), ".env")
-        if os.path.exists(env_path):
-            for line in open(env_path):
-                line = line.strip()
-                if line.startswith("BLOTATO_API_KEY="):
-                    key = line.split("=", 1)[1].strip().strip('"').strip("'")
-                    break
+        # .env lives at the project root (parent of scripts/); fall back to
+        # scripts/.env for backward compatibility.
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        for env_path in (os.path.join(root, ".env"), os.path.join(script_dir, ".env")):
+            if os.path.exists(env_path):
+                for line in open(env_path):
+                    line = line.strip()
+                    if line.startswith("BLOTATO_API_KEY="):
+                        key = line.split("=", 1)[1].strip().strip('"').strip("'")
+                        break
+            if key:
+                break
     if not key:
-        sys.exit("ERROR: BLOTATO_API_KEY not set (env var or scripts/.env). "
+        sys.exit("ERROR: BLOTATO_API_KEY not set (env var or .env at the project root). "
                  "Get it at my.blotato.com > Settings > API.")
     return key
 

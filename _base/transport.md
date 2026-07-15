@@ -6,7 +6,7 @@
 ## Tier 1 — API directa (default)
 `scripts/blotato.py` contra `https://backend.blotato.com/v2` con `BLOTATO_API_KEY`.
 - **Cuándo:** por defecto, sobre todo en Claude Code (TUI/VS Code). Rápido y portable.
-- **Requiere:** la key en `scripts/.env`.
+- **Requiere:** la key en `.env` (raíz del proyecto).
 
 ## Tier 2 — MCP (cuando convenga o falte la key)
 Las herramientas `blotato_*` del MCP (ya conectado en Cowork/Desktop).

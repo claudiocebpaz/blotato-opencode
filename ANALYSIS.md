@@ -111,7 +111,7 @@ Offered as a partner, in priority order:
 - Both runtimes load the 9 skills from the **single** in-repo copy (verified: `opencode debug
   skill` → all 9 resolve to `.claude/skills/`; Claude Code reads the same directory).
 - Thin adapters only — no duplicated methodology between `.claude/` and `.opencode/`.
-- No secrets in the repo — `scripts/.env` gitignored, `opencode.json` uses `{env:BLOTATO_API_KEY}`,
-  and the only key placeholder is in `scripts/.env.example`.
+- No secrets in the repo — the root `.env` gitignored, `opencode.json` uses `{env:BLOTATO_API_KEY}`,
+  and the only key placeholder is in `.env.example` at the project root.
 - Brand-agnostic — one brand per clone, configured in `brand-brief.md` + `branding.md` +
   `_base/accounts.md`; no brand or multi-brand routing baked into the framework.

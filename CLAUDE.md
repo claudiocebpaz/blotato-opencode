@@ -129,7 +129,7 @@ los adaptadores por runtime son finos. Ver `ANALYSIS.md`.
 **Siempre cargar `_base/` + los archivos de la marca (`brand-brief.md`, `branding.md`) antes de generar.**
 
 ## API (script)
-Todo pasa por `scripts/blotato.py` (requiere `BLOTATO_API_KEY` en `scripts/.env`).
+Todo pasa por `scripts/blotato.py` (requiere `BLOTATO_API_KEY` en `.env` en la raíz del proyecto).
 `whoami` valida · `accounts` lista · `templates` descubre visuales · `write` **Blotato escribe
 el copy** · `source` extrae · `visual` genera · `post` agenda · `post-status` polea/backfillea
 la URL en vivo · `slots-list/slots-create` cadencia.

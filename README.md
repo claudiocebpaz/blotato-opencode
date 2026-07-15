@@ -87,7 +87,7 @@ Code it's set per subagent.
 
 **Setup**
 ```bash
-cp scripts/.env.example scripts/.env      # then paste your Blotato API key
+cp .env.example .env                      # at the project root — then paste your Blotato API key
 # BLOTATO_API_KEY=blt_...  (from my.blotato.com → Settings → API)
 python3 scripts/blotato.py whoami         # validates the key
 ```
@@ -104,9 +104,9 @@ and `_base/accounts.md` (run `python3 scripts/blotato.py accounts` to get your r
   `opencode debug skill`) and reads the 3 adapters in `.opencode/agents/`.
 - `opencode.json` sets `"instructions": ["CLAUDE.md"]` and pulls the Blotato key from the
   environment via `{env:BLOTATO_API_KEY}`. opencode does **not** auto-load `.env`, so export it
-  first (the Python side reads `scripts/.env` on its own):
+  first (the Python side reads the root `.env` on its own):
   ```bash
-  set -a; source scripts/.env; set +a
+  set -a; source .env; set +a
   opencode
   ```
 
@@ -157,6 +157,6 @@ copy generation, visuals, source extraction, and the calendar — through its AP
 └── .opencode/agents/          # opencode adapter (reads the same skills natively)
 ```
 
-No secrets are committed. `scripts/.env` is gitignored; `opencode.json` never contains a literal
+No secrets are committed. The root `.env` is gitignored; `opencode.json` never contains a literal
 key. Both runtimes read the **one** in-repo copy of the core — editing a `_base/*.md` or a
 `SKILL.md` changes behavior everywhere, no second file to touch.

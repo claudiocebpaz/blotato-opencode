@@ -1,6 +1,6 @@
 # Secrets — NEVER commit
-scripts/.env
 .env
+scripts/.env
 *.key
 
 # Python
