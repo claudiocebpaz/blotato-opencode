@@ -301,7 +301,6 @@ terms; this repo credits it rather than redistributing it.
 
 ---
 
-> **A note on language.** Everything in this repo — docs, orchestration guides (`CLAUDE.md`), the
-> `SKILL.md` files, and `_base/` — is in English. Generated **post copy** comes out in whatever
-> language you set in `brand-brief.md`. No secrets are committed: the root `.env` is gitignored,
-> `opencode.json` uses `{env:BLOTATO_API_KEY}`, and the only placeholder is in `.env.example`.
+> **Security.** No secrets are committed: the root `.env` is gitignored, `opencode.json` uses
+> `{env:BLOTATO_API_KEY}`, and the only placeholder is in `.env.example`. (Generated **post copy**
+> comes out in whatever language you set in `brand-brief.md`.)
