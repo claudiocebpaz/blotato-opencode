@@ -1,38 +1,38 @@
-# Mecánica de la API de Blotato
+# Blotato API mechanics
 
-> Todo el trabajo pesado (generar visuales, agendar, publicar) lo hace Blotato por API.
+> All the heavy lifting (generating visuals, scheduling, publishing) is done by Blotato via API.
 > Base URL: `https://backend.blotato.com/v2` · Header: `blotato-api-key: <API_KEY>`
-> Todo es asíncrono: creás → te devuelve un id → poleás estado.
-> El cliente Python en `scripts/blotato.py` envuelve todo esto.
+> Everything is asynchronous: you create → it returns an id → you poll status.
+> The Python client in `scripts/blotato.py` wraps all of this.
 
-## Autenticación
-- Header en cada request: `blotato-api-key: <API_KEY>`.
-- La key se saca en Settings → API de my.blotato.com. **Generarla termina el trial y activa el plan pago.**
-- La key puede terminar en `=` (padding base64): es parte de la key, no la recortes.
-- Validar: `GET /users/me`.
+## Authentication
+- Header on every request: `blotato-api-key: <API_KEY>`.
+- The key comes from Settings → API at my.blotato.com. **Generating it ends the trial and activates the paid plan.**
+- The key may end in `=` (base64 padding): it's part of the key, don't trim it.
+- Validate: `GET /users/me`.
 
-## Regla de oro: nada se publica directo
-**Siempre** agendar. Al crear un post, pasar `scheduledTime` (ISO 8601) **o** `useNextFreeSlot: true`.
-Si no mandás ninguno de los dos, publica al instante. ⚠️ Estos campos van al **nivel raíz**,
-hermanos de `post`. Si los metés adentro de `post`, se ignoran y publica ya.
+## Golden rule: nothing publishes directly
+**Always** schedule. When creating a post, pass `scheduledTime` (ISO 8601) **or** `useNextFreeSlot: true`.
+If you send neither, it publishes instantly. ⚠️ These fields go at the **root level**,
+siblings of `post`. If you put them inside `post`, they're ignored and it publishes right away.
 
-## Endpoints clave
+## Key endpoints
 
-| Método | Path | Para qué |
+| Method | Path | For what |
 |---|---|---|
-| GET | `/users/me` | Validar la key |
-| GET | `/users/me/accounts` | Listar cuentas → obtener `accountId` |
-| GET | `/users/me/accounts/:id/subaccounts` | Páginas de FB / LinkedIn → `pageId` |
-| POST | `/videos/from-templates` | **Generar** carrusel / imagen / video |
-| GET | `/videos/creations/:id` | Polear estado del visual → `imageUrls` / `mediaUrl` |
-| POST | `/source-resolutions-v3` | Extraer contenido de URL / video / texto |
-| GET | `/source-resolutions-v3/:id` | Polear extracción |
-| POST | `/posts` | Crear + agendar post |
-| GET | `/posts/:id` | Polear estado de publicación |
-| GET | `/schedule/slots` | Ver slots del calendario |
-| POST | `/schedule/slots` | Crear slots (cadencia) |
+| GET | `/users/me` | Validate the key |
+| GET | `/users/me/accounts` | List accounts → get `accountId` |
+| GET | `/users/me/accounts/:id/subaccounts` | FB / LinkedIn pages → `pageId` |
+| POST | `/videos/from-templates` | **Generate** carousel / image / video |
+| GET | `/videos/creations/:id` | Poll the visual's status → `imageUrls` / `mediaUrl` |
+| POST | `/source-resolutions-v3` | Extract content from URL / video / text |
+| GET | `/source-resolutions-v3/:id` | Poll the extraction |
+| POST | `/posts` | Create + schedule a post |
+| GET | `/posts/:id` | Poll publish status |
+| GET | `/schedule/slots` | View calendar slots |
+| POST | `/schedule/slots` | Create slots (cadence) |
 
-## Crear + agendar un post
+## Create + schedule a post
 
 ```json
 {
@@ -45,53 +45,53 @@ hermanos de `post`. Si los metés adentro de `post`, se ignoran y publica ya.
 }
 ```
 
-Reglas:
-- `content.platform` DEBE ser idéntico a `target.targetType`.
-- `mediaUrls`: URLs públicas (las que devuelve el visual-producer). `[]` si es solo texto.
-- Facebook exige `target.pageId`. LinkedIn `pageId` opcional (omitir = perfil personal).
-- Twitter no pide campos extra.
-- Respuesta: `{ "postSubmissionId": "..." }` → polear `GET /posts/:id` (`in-progress`/`published`/`failed`).
+Rules:
+- `content.platform` MUST be identical to `target.targetType`.
+- `mediaUrls`: public URLs (the ones the visual-producer returns). `[]` if it's text only.
+- Facebook requires `target.pageId`. LinkedIn `pageId` is optional (omit = personal profile).
+- Twitter doesn't ask for extra fields.
+- Response: `{ "postSubmissionId": "..." }` → poll `GET /posts/:id` (`in-progress`/`published`/`failed`).
 
-## Escribir el copy (lo hace Blotato, no Claude)
+## Writing the copy (Blotato does it, not Claude)
 
-Blotato escribe el texto por API vía `source-resolutions-v3` con `customInstructions`.
-Claude solo arma el brief + las instrucciones; Blotato genera.
+Blotato writes the text via API through `source-resolutions-v3` with `customInstructions`.
+Claude only assembles the brief + the instructions; Blotato generates.
 
 ```bash
-# Escribir desde un brief/topic (Blotato redacta)
+# Write from a brief/topic (Blotato drafts)
 python scripts/blotato.py write \
-  --brief "AI agent loops: por qué los loops sin corte queman tokens" \
+  --brief "AI agent loops: why uncut loops burn tokens" \
   --instructions "Write a LinkedIn post in English. Hook-first (first 140 chars). ~1300 chars. \
 One idea. Voice: technical, direct, no fluff. Wedge: most 'AI agents' are a while-loop with extra steps. \
 Comment-driving CTA. No em dashes, no hashtags in body."
 
-# Con investigación web previa (Blotato usa perplexity-query)
+# With prior web research (Blotato uses perplexity-query)
 python scripts/blotato.py write --research --brief "latest on AI agent reliability" --instructions "..."
 ```
-Devuelve `{ "title", "content" }`. Ese `content` es el copy. Reglas:
-- Las instrucciones DEBEN incluir: idioma, plataforma, largo, hook-first, voz + wedge de la
-  marca, tipo de CTA, y las reglas de voz (sin em dashes, hashtags, etc.). Salen del brand-brief + platform-specs.
-- Si el grader lo rechaza, se **regenera con instrucciones corregidas** (Claude no reescribe).
-- Equivalente MCP: `blotato_create_source` (ver `transport.md`).
+Returns `{ "title", "content" }`. That `content` is the copy. Rules:
+- The instructions MUST include: language, platform, length, hook-first, the brand's voice + wedge,
+  CTA type, and the voice rules (no em dashes, hashtags, etc.). They come from the brand-brief + platform-specs.
+- If the grader rejects it, it's **regenerated with corrected instructions** (Claude doesn't rewrite).
+- MCP equivalent: `blotato_create_source` (see `transport.md`).
 
-> Nota: el AI Agent pulido de la app da mejor calidad pero es app-only. Si `write` no alcanza,
-> se puede subir a Tier 3 (navegador) — ver `transport.md`.
+> Note: the app's polished AI Agent gives better quality but is app-only. If `write` isn't enough,
+> you can go up to Tier 3 (browser) — see `transport.md`.
 
-## Generar un visual (lo hace Blotato)
+## Generate a visual (Blotato does it)
 
 ```json
 { "templateId": "53cfec04-...", "inputs": { ... }, "render": true }
 ```
-Respuesta `{ "item": { "id": "...", "status": "queueing" } }` → polear `GET /videos/creations/:id`
-hasta `status: "done"` → usar `imageUrls` (carrusel/imagen) o `mediaUrl` (video) como `mediaUrls` del post.
-Ver el catálogo y los inputs en `templates.md`.
+Response `{ "item": { "id": "...", "status": "queueing" } }` → poll `GET /videos/creations/:id`
+until `status: "done"` → use `imageUrls` (carousel/image) or `mediaUrl` (video) as the post's `mediaUrls`.
+See the catalog and inputs in `templates.md`.
 
-## Cadencia (Schedule Slots)
-Los slots definen el calendario y se definen en **UTC**. `useNextFreeSlot` cae en el próximo
-slot libre de esa plataforma/cuenta. Sin slots configurados, `useNextFreeSlot` no tiene dónde caer.
-Crear con `POST /schedule/slots` body `{ "slots": [ { hour, minute, day, selectedTargets:[...] } ] }`.
+## Cadence (Schedule Slots)
+Slots define the calendar and are set in **UTC**. `useNextFreeSlot` lands in the next
+free slot for that platform/account. With no slots configured, `useNextFreeSlot` has nowhere to land.
+Create with `POST /schedule/slots` body `{ "slots": [ { hour, minute, day, selectedTargets:[...] } ] }`.
 
 ## Rate limits / gotchas
-- `POST /posts` y `POST /videos/from-templates`: 30/min. Polling: 60/min.
-- `429` → el mensaje dice en cuántos segundos reintentar.
-- Confundir `postSubmissionId` (polling de publicación) con el id de post publicado (analytics) es error común.
+- `POST /posts` and `POST /videos/from-templates`: 30/min. Polling: 60/min.
+- `429` → the message says how many seconds to wait before retrying.
+- Confusing `postSubmissionId` (publish polling) with the published post id (analytics) is a common error.

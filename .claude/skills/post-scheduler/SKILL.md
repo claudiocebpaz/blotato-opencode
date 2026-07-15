@@ -5,104 +5,104 @@ argument-hint: "[post text or path] [platform(s)] [optional time]"
 allowed-tools: Read, Write, Edit, Glob, Bash, AskUserQuestion
 ---
 
-# Post Scheduler (API directa)
+# Post Scheduler (direct API)
 
 You take an approved post and ship it to the Blotato **calendar** via the direct REST API
 (`scripts/blotato.py`), NOT via MCP. You do NOT write or revise the post — that's `post-writer`'s
 job. By the time a post reaches you, it's been graded and approved. **Nothing publishes
 immediately: everything is scheduled.**
 
-> **Por qué API directa:** este proyecto usa `scripts/blotato.py` (requiere `BLOTATO_API_KEY`
-> en `.env` en la raíz del proyecto) para ser más rápido y funcionar igual en Claude Code, Desktop y Cowork,
-> sin depender del MCP.
+> **Why direct API:** this project uses `scripts/blotato.py` (requires `BLOTATO_API_KEY`
+> in `.env` at the project root) to be faster and work the same in Claude Code, Desktop, and Cowork,
+> without depending on MCP.
 
 ## When to Activate
-- "Schedule this post" / "Agendá esto a LinkedIn de tu marca"
+- "Schedule this post" / "Schedule this to your brand's LinkedIn"
 - Auto-called as the final step of `content-coach`, `post-writer`, or `repurpose` after approval.
 
 ## Workflow
 
 ### Step 1: Get inputs
-1. **Post text** — inline, or path to a file (idealmente `posts/....md`).
+1. **Post text** — inline, or path to a file (ideally `posts/....md`).
 2. **Platform(s)** — one or more from: instagram, facebook, twitter, linkedin.
-3. **Cuenta** — para resolver el `accountId`/`pageId` correcto (leé `_base/accounts.md`).
-4. **Media** — las `mediaUrls` que devolvió `visual-producer` (o vacío si es solo texto).
-5. **Time** — por defecto `--next-free-slot`; o un ISO timestamp si el usuario lo especificó.
+3. **Account** — to resolve the correct `accountId`/`pageId` (read `_base/accounts.md`).
+4. **Media** — the `mediaUrls` that `visual-producer` returned (or empty if text-only).
+5. **Time** — defaults to `--next-free-slot`; or an ISO timestamp if the user specified one.
 
-Si falta la plataforma o la marca, preguntá. No adivines.
+If the platform or brand is missing, ask. Don't guess.
 
 ### Step 2: Final pre-publish check
-Antes de tocar la API, revisá el post una vez más:
-- [ ] Cero em dashes
-- [ ] Sin relleno prohibido ("really", "very", "just", "basically", "literally", "actually")
-- [ ] Sin aperturas de relleno ("in today's world", "let me tell you")
-- [ ] Voz activa; contracciones usadas
-- [ ] Nº de hashtags correcto (0 en Twitter/LinkedIn/Facebook; 3-5 en Instagram)
-- [ ] Instagram: hay `mediaUrls` adjuntas
-- [ ] LinkedIn: sin links externos en el cuerpo
+Before touching the API, review the post one more time:
+- [ ] Zero em dashes
+- [ ] No banned filler ("really", "very", "just", "basically", "literally", "actually")
+- [ ] No filler openers ("in today's world", "let me tell you")
+- [ ] Active voice; contractions used
+- [ ] Correct number of hashtags (0 on Twitter/LinkedIn/Facebook; 3-5 on Instagram)
+- [ ] Instagram: `mediaUrls` are attached
+- [ ] LinkedIn: no external links in the body
 
-Si algo falla, **frená y reportá**. Esperá respuesta explícita del usuario. No auto-arregles.
+If anything fails, **stop and report**. Wait for an explicit response from the user. Don't auto-fix.
 
-### Step 3: Resolvé la cuenta
-Leé `_base/accounts.md`. Por ejemplo:
+### Step 3: Resolve the account
+Read `_base/accounts.md`. For example:
 - LinkedIn → `--account <ACCOUNT_ID> --page <PAGE_ID>`
 - X → `--account <ACCOUNT_ID>`
 
-Facebook requiere `--page` (pageId) obligatorio. Si una plataforma tiene varias cuentas posibles, preguntá cuál.
+Facebook requires `--page` (pageId) as mandatory. If a platform has several possible accounts, ask which one.
 
-### Step 4: Agendá (una llamada por plataforma)
+### Step 4: Schedule (one call per platform)
 ```bash
 python scripts/blotato.py post \
   --account <accountId> --platform <linkedin|twitter|instagram|facebook> \
   [--page <pageId>] \
   --text-file <path> \
   [--media "<url1,url2,...>"] \
-  --next-free-slot            # o: --schedule "2026-07-20T13:00:00Z"
+  --next-free-slot            # or: --schedule "2026-07-20T13:00:00Z"
 ```
-Reglas:
-- **Siempre** `--next-free-slot` o `--schedule`. El script se niega a publicar sin uno de los dos.
-- El script garantiza `content.platform == target.targetType`.
-- Multi-plataforma: una llamada por plataforma. Si el copy excede el límite de una plataforma, preguntá cómo manejarlo (acortar / saltar / override). No truncar solo.
+Rules:
+- **Always** `--next-free-slot` or `--schedule`. The script refuses to publish without one of the two.
+- The script guarantees `content.platform == target.targetType`.
+- Multi-platform: one call per platform. If the copy exceeds a platform's limit, ask how to handle it (shorten / skip / override). Don't truncate on your own.
 
-### Step 5: Reportá
-Mostrá una tabla de confirmación:
+### Step 5: Report
+Show a confirmation table:
 ```
-## Agendado
-| Plataforma | Marca | Cuenta | Hora | Estado | postSubmissionId |
+## Scheduled
+| Platform | Brand | Account | Time | Status | postSubmissionId |
 |---|---|---|---|---|---|
-| LinkedIn | tu marca | <PAGE_ID> | Próximo slot libre | scheduled | abc-123 |
-| Twitter | tu marca | <PLATFORM_HANDLE> | Próximo slot libre | scheduled | def-456 |
+| LinkedIn | your brand | <PAGE_ID> | Next free slot | scheduled | abc-123 |
+| Twitter | your brand | <PLATFORM_HANDLE> | Next free slot | scheduled | def-456 |
 
-Ver y editar en https://my.blotato.com/scheduler
+View and edit at https://my.blotato.com/scheduler
 ```
-Para fallas parciales (3 de 5 ok), reportá éxito y falla por separado. No hagas rollback.
+For partial failures (3 of 5 ok), report success and failure separately. Don't roll back.
 
-### Step 6: Fallback (sin API key)
-Si `python scripts/blotato.py whoami` falla o no hay `.env` en la raíz:
+### Step 6: Fallback (no API key)
+If `python scripts/blotato.py whoami` fails or there's no `.env` at the root:
 ```
-Blotato no está conectado (falta la API key en .env). Guardo el post para pegarlo a mano.
+Blotato is not connected (missing the API key in .env). Saving the post to paste manually.
 ```
-Guardá en `posts/<slug>-ready-to-paste.txt`:
+Save to `posts/<slug>-ready-to-paste.txt`:
 ```
-=== POST PARA [PLATAFORMA] ===
-Agendar para: [hora o "posteo manual"]
+=== POST FOR [PLATFORM] ===
+Schedule for: [time or "manual post"]
 
-[TEXTO DEL POST]
+[POST TEXT]
 
-=== FIN ===
+=== END ===
 ```
-Si es multi-plataforma, un bloque por plataforma. Decile el path al usuario. Nunca falles el flujo.
+If multi-platform, one block per platform. Tell the user the path. Never fail the flow.
 
-## Manejo de errores
-- **401/403** → la API key falla o expiró. Avisá para revisar `.env` (raíz) o regenerar la key.
-- **429** → rate limit; esperá los segundos que dice el mensaje y reintentá una vez.
-- **`--next-free-slot` sin slots** → no hay slots para esa plataforma/cuenta. Avisá para crear
-  slots (`python scripts/blotato.py slots-create ...`) o usar `--schedule` con hora exacta.
-- **Post sobre el límite de chars** → no truncar; preguntá.
-- **Falla de red** → reintentá una vez; si vuelve a fallar, guardá al fallback y reportá.
+## Error handling
+- **401/403** → the API key is failing or expired. Tell the user to check `.env` (root) or regenerate the key.
+- **429** → rate limit; wait the number of seconds the message says and retry once.
+- **`--next-free-slot` with no slots** → there are no slots for that platform/account. Tell the user to create
+  slots (`python scripts/blotato.py slots-create ...`) or use `--schedule` with an exact time.
+- **Post over the char limit** → don't truncate; ask.
+- **Network failure** → retry once; if it fails again, save to the fallback and report.
 
 ## What NOT to Do
-- No auto-arreglar problemas de voz: solo flag y preguntar (eso es de post-grader/post-writer).
-- No saltear el pre-check: es la última línea de defensa.
-- No publicar al instante por defecto. Solo publicá ya si el usuario dice explícitamente "post now".
-- No reportar "listo" sin el `postSubmissionId`.
+- Don't auto-fix voice issues: just flag and ask (that's post-grader/post-writer's job).
+- Don't skip the pre-check: it's the last line of defense.
+- Don't publish instantly by default. Only publish now if the user explicitly says "post now".
+- Don't report "done" without the `postSubmissionId`.

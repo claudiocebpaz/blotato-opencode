@@ -1,47 +1,47 @@
-# Generador de carruseles branded (HTML → PNG)
+# Branded carousel generator (HTML → PNG)
 
-> **Por qué existe:** el template "Tutorial Carousel" de Blotato genera carruseles **feos y
-> genéricos** (no respeta la identidad de la marca). Para carruseles branded de verdad
-> —al nivel del Brand Kit— renderizamos HTML/CSS propio a PNG y subimos esas imágenes a Blotato.
-> Este es el camino preferido para carruseles; el template de Blotato queda como último recurso.
+> **Why it exists:** Blotato's "Tutorial Carousel" template produces **ugly, generic**
+> carousels (it doesn't respect the brand's identity). For truly branded carousels
+> —at Brand Kit level— we render our own HTML/CSS to PNG and upload those images to Blotato.
+> This is the preferred path for carousels; Blotato's template is the last resort.
 
-## Flujo
+## Flow
 
-1. **Editá el contenido** en una copia del template:
+1. **Edit the content** in a copy of the template:
    `cp scripts/carousel/brand-template.html posts/<slug>.carousel.html`
-   Cada `<div class="slide">` es una imagen. El chrome (logo `{b}`, pill, kicker, footer,
-   watermark) ya está estilado; reemplazá colores/fuente/logo con los de `branding.md`. Patrones incluidos:
-   título, cuerpo, numerado (01/02/03), cierre con highlight.
+   Each `<div class="slide">` is one image. The chrome (logo `{b}`, pill, kicker, footer,
+   watermark) is already styled; replace the colors/font/logo with those from `branding.md`. Included patterns:
+   title, body, numbered (01/02/03), closing slide with highlight.
 
-2. **Renderizá a PNG** (Chrome headless + Puppeteer; la fuente se baja de Google Fonts):
+2. **Render to PNG** (headless Chrome + Puppeteer; the font is fetched from Google Fonts):
    ```bash
-   NODE_PATH="$HOME/node_modules" node scripts/carousel/render.js <la-copia>.html <outDir>
+   NODE_PATH="$HOME/node_modules" node scripts/carousel/render.js <the-copy>.html <outDir>
    ```
-   Salida: `slide1.png`, `slide2.png`, ... a 2160×2700 (2x, crisp). Requiere Google Chrome
-   instalado (override con `CHROME_PATH=...`) y `puppeteer` resoluble (está en `~/node_modules`).
+   Output: `slide1.png`, `slide2.png`, ... at 2160×2700 (2x, crisp). Requires Google Chrome
+   installed (override with `CHROME_PATH=...`) and `puppeteer` resolvable (it's in `~/node_modules`).
 
-3. **Subí cada PNG a Blotato** para obtener URLs públicas.
-   - **Con MCP disponible:** `blotato_create_presigned_upload_url` → `curl -X PUT "<presignedUrl>"
-     -H "Content-Type: image/png" --data-binary "@slideN.png"` → usá el `publicUrl`. Un token
-     presignado es de un solo uso; si un PUT falla, pedí uno nuevo.
-   - **Sin MCP (API directa, sesión sin server MCP de Blotato configurado):** `POST
-     https://backend.blotato.com/v2/media` (header `blotato-api-key`) con body
-     `{"url": "data:image/png;base64,<contenido en base64>"}` — Blotato re-hostea el data URL y
-     devuelve `{"url": "<publicUrl>", "id": "..."}`. Armalo con Python (`base64.b64encode` +
-     `urllib.request`), no con curl/shell puro: el base64 de un PNG de carrusel es demasiado
-     largo para pasarlo cómodo por `-d` en la shell. `POST /media` con una URL pública normal
-     (no data:) también funciona si la imagen ya está alojada en otro lado.
-   - ⚠️ **Subí de a UNO y verificá**, no en un loop (se desalinea fácil, y las tools de sandbox
-     pueden bloquear loops de curl repetidos silenciosamente). Después de subir, chequeá cada
-     URL: `curl -s -o /dev/null -w "%{http_code} %{size_download}" <publicUrl>` — debe dar `200`
-     y el tamaño debe coincidir *exacto* con el archivo local (`ls -la slideN.png`). Un tamaño
-     que no coincide = orden cruzado o subida rota.
+3. **Upload each PNG to Blotato** to get public URLs.
+   - **With MCP available:** `blotato_create_presigned_upload_url` → `curl -X PUT "<presignedUrl>"
+     -H "Content-Type: image/png" --data-binary "@slideN.png"` → use the `publicUrl`. A presigned
+     token is single-use; if a PUT fails, request a new one.
+   - **Without MCP (direct API, session without Blotato's MCP server configured):** `POST
+     https://backend.blotato.com/v2/media` (header `blotato-api-key`) with body
+     `{"url": "data:image/png;base64,<base64 content>"}` — Blotato re-hosts the data URL and
+     returns `{"url": "<publicUrl>", "id": "..."}`. Build it with Python (`base64.b64encode` +
+     `urllib.request`), not with plain curl/shell: the base64 of a carousel PNG is too
+     long to pass comfortably via `-d` in the shell. `POST /media` with a normal public URL
+     (not data:) also works if the image is already hosted elsewhere.
+   - ⚠️ **Upload ONE at a time and verify**, not in a loop (it desyncs easily, and sandbox tools
+     may silently block repeated curl loops). After uploading, check each
+     URL: `curl -s -o /dev/null -w "%{http_code} %{size_download}" <publicUrl>` — it should return `200`
+     and the size should match the local file *exactly* (`ls -la slideN.png`). A size
+     that doesn't match = crossed order or a broken upload.
 
-4. **Agendá / actualizá el post** con esos `publicUrl` como `mediaUrls` (orden = orden de slides).
-   `blotato.py post --media "url1,url2,..."` o, si ya estaba agendado, `blotato_update_schedule`.
+4. **Schedule / update the post** with those `publicUrl`s as `mediaUrls` (order = slide order).
+   `blotato.py post --media "url1,url2,..."` or, if it was already scheduled, `blotato_update_schedule`.
 
-## Notas
-- Paleta y fuente salen de `branding.md`. Mantené tu color de acento acotado (~10% máx).
-- LinkedIn arma el carrusel/documento con 2–10 imágenes; respetá ese rango.
-- Aspecto 4:5 (1080×1350) va bien en feed. Para 1:1 cambiá `.slide` a 1080×1080.
-- El logo `{h}` está dibujado por CSS (no necesita el PNG del avatar alojado).
+## Notes
+- Palette and font come from `branding.md`. Keep your accent color limited (~10% max).
+- LinkedIn builds the carousel/document from 2–10 images; respect that range.
+- 4:5 aspect ratio (1080×1350) works well in feed. For 1:1, change `.slide` to 1080×1080.
+- The `{h}` logo is drawn with CSS (it doesn't need the hosted avatar PNG).

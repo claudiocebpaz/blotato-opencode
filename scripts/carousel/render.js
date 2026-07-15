@@ -1,10 +1,10 @@
-// Renderiza un carrusel branded (HTML/CSS) a PNGs, un archivo por slide.
-// Cada slide es un <div class="slide"> de 1080x1350 en el HTML.
+// Renders a branded carousel (HTML/CSS) to PNGs, one file per slide.
+// Each slide is a 1080x1350 <div class="slide"> in the HTML.
 //
-// Uso:
+// Usage:
 //   NODE_PATH="$HOME/node_modules" node scripts/carousel/render.js <html> [outDir]
 //
-// Requiere: Google Chrome instalado + puppeteer resuelto vía NODE_PATH.
+// Requires: Google Chrome installed + puppeteer resolved via NODE_PATH.
 // Output: <outDir>/slide1.png, slide2.png, ... (2x, 2160x2700).
 const puppeteer = require('puppeteer');
 const path = require('path');
@@ -24,7 +24,7 @@ const CHROME = process.env.CHROME_PATH ||
   await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 2 });
   await page.goto('file://' + path.resolve(htmlPath), { waitUntil: 'networkidle0' });
   await page.evaluate(async () => { await document.fonts.ready; });
-  await new Promise(r => setTimeout(r, 800)); // asegurar webfonts cargadas
+  await new Promise(r => setTimeout(r, 800)); // ensure webfonts are loaded
   const slides = await page.$$('.slide');
   for (let i = 0; i < slides.length; i++) {
     await slides[i].screenshot({ path: path.join(outDir, `slide${i + 1}.png`) });

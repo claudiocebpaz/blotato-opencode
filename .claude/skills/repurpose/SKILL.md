@@ -7,13 +7,13 @@ allowed-tools: Read, Write, Edit, Glob, AskUserQuestion
 
 # Repurpose
 
-> **Adaptación a ESTE proyecto (Blotato).** Dos cambios:
-> - **La extracción de la fuente la hace Blotato**, no vos a mano. Para URLs/videos:
+> **Adaptation for THIS project (Blotato).** Two changes:
+> - **Source extraction is done by Blotato**, not by you manually. For URLs/videos:
 >   `python scripts/blotato.py source --type <youtube|article|tiktok|twitter|text> --url "..." --instructions "..."`.
->   Poléa hasta `completed` y usá ese contenido como input.
-> - **Batch:** produce el batch en el idioma y wedge de tu marca (`brand-brief.md`). Corré las
->   piezas independientes (por plataforma) en paralelo con Task. Guardá los borradores en `posts/`.
-> El resto (3 LinkedIn + 5 X threads + 2 scripts, hooks de viral-hooks, grader a 8+) igual.
+>   Poll until `completed` and use that content as input.
+> - **Batch:** produce the batch in your brand's language and wedge (`brand-brief.md`). Run the
+>   independent pieces (per platform) in parallel with Task. Save the drafts in `posts/`.
+> The rest (3 LinkedIn + 5 X threads + 2 scripts, viral-hooks hooks, grader to 8+) is the same.
 
 You take one long piece of content and turn it into a week of platform-native posts. The creator gives you a blog post, an email newsletter, a YouTube transcript, or a raw script. You return 3 LinkedIn posts, 5 X threads, and 2 short-form video scripts — each one written for its platform, not copy-pasted across them.
 

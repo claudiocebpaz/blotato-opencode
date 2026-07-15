@@ -1,57 +1,57 @@
-# Especificaciones por plataforma
+# Platform specifications
 
-> Límites, CTA que premia cada algoritmo, y cadencia máxima. El `post-writer` y el
-> `post-grader` leen esto para adaptar cada pieza. Pasarse de la cadencia baja el alcance.
+> Limits, the CTA each algorithm rewards, and max cadence. The `post-writer` and the
+> `post-grader` read this to adapt each piece. Exceeding the cadence lowers reach.
 
-## Tabla rápida
+## Quick table
 
-| Plataforma | Largo copy | Hook | CTA que premia | Hashtags | Cadencia máx/día |
+| Platform | Copy length | Hook | CTA rewarded | Hashtags | Max cadence/day |
 |---|---|---|---|---|---|
-| LinkedIn | 1.200–1.500 chars | primeros ~140 chars (antes del "ver más") | **comentarios** (~2x vs likes) | 3–5 opcional, al final | 2 |
-| X / Twitter | 280 (ideal 60–100) | primeras 3 palabras | **respuestas** (~75x vs likes) | 0 | 5 (<10k), 15 (>10k) |
-| Instagram | 2.200 (hook en 125) | primeros 125 chars | feed: **guardados**; reels: **completación** | 3–5 nicho, al final | 1 imagen + 4 reels |
-| Facebook | 40–80 óptimo | frase corta | **shares** ("etiquetá a alguien") | 0 | 4 reels |
+| LinkedIn | 1,200–1,500 chars | first ~140 chars (before "see more") | **comments** (~2x vs likes) | 3–5 optional, at the end | 2 |
+| X / Twitter | 280 (ideal 60–100) | first 3 words | **replies** (~75x vs likes) | 0 | 5 (<10k), 15 (>10k) |
+| Instagram | 2,200 (hook in 125) | first 125 chars | feed: **saves**; reels: **completion** | 3–5 niche, at the end | 1 image + 4 reels |
+| Facebook | 40–80 optimal | short sentence | **shares** ("tag someone") | 0 | 4 reels |
 
-## CTA por plataforma (usar el que premia el algoritmo)
+## CTA per platform (use the one the algorithm rewards)
 
-- **LinkedIn** → pregunta polarizante / "¿qué le agregarías?" (busca comentarios).
-- **X** → take polarizante / "decime que me equivoco" (busca respuestas).
-- **Instagram feed** → "guardá esto para después" / "mandáselo a quien lo necesita".
-- **Instagram reels** → gancho que retiene hasta el final + "guardá".
-- **Facebook** → "etiquetá a alguien que…" (busca shares).
+- **LinkedIn** → polarizing question / "what would you add?" (seeks comments).
+- **X** → polarizing take / "tell me I'm wrong" (seeks replies).
+- **Instagram feed** → "save this for later" / "send it to whoever needs it".
+- **Instagram reels** → a hook that retains to the end + "save".
+- **Facebook** → "tag someone who…" (seeks shares).
 
-## Reglas por plataforma
+## Rules per platform
 
 **LinkedIn**
-- **Craft completo en `_base/linkedin-craft.md`** (formato mobile-first, "texto oculto",
-  5 hacks de ritmo, storytelling de 8 pasos). Cargarlo siempre para piezas de LinkedIn.
-- Sin links externos en el cuerpo (matan alcance) → link en el primer comentario.
-- Espaciar el texto, nada de bloques: párrafos de 1–3 líneas + white space.
-- **Texto oculto:** hook potente arriba, 2–3 líneas en blanco, después el cuerpo (fuerza el "ver más").
-- Emojis SÍ, pero **solo funcionales y con moderación** (✅/❌, señaladores), no decorativos.
-- Repost del mismo post a la tarde para resurfacear.
-- Carruseles = documento PDF que Blotato arma desde 2–10 imágenes (sin video). Ver `templates.md`.
-- Por API NO se puede: publicar Articles, crear polls, repostear, ni video dentro de carrusel.
+- **Full craft in `_base/linkedin-craft.md`** (mobile-first format, "hidden text",
+  5 rhythm hacks, 8-step storytelling). Always load it for LinkedIn pieces.
+- No external links in the body (they kill reach) → link in the first comment.
+- Space out the text, no blocks: paragraphs of 1–3 lines + white space.
+- **Hidden text:** strong hook up top, 2–3 blank lines, then the body (forces the "see more").
+- Emojis YES, but **only functional and in moderation** (✅/❌, markers), not decorative.
+- Repost the same post in the afternoon to resurface it.
+- Carousels = a PDF document Blotato builds from 2–10 images (no video). See `templates.md`.
+- Via API you CANNOT: publish Articles, create polls, repost, or put video inside a carousel.
 
 **X / Twitter**
-- Sin hashtags, sin links en el cuerpo del tweet principal.
-- **Emojis SÍ en X** (a diferencia de LinkedIn): un emoji líder por tweet en los hilos rompe el
-  ladrillo de texto plano y da ritmo/escaneabilidad. Que mapee al concepto (🛑 stop, ⏱️ cap,
-  ✅ check, 🧠 memory, 💬 CTA). Uno por tweet, no spam. El tweet-1 hook puede ir limpio.
-- Threads: tweet 1 es hook puro; link solo en el último tweet.
-- Cuentas nuevas: calentar 1–2 semanas posteando manual antes de automatizar.
+- No hashtags, no links in the body of the main tweet.
+- **Emojis YES on X** (unlike LinkedIn): one lead emoji per tweet in threads breaks the
+  plain-text brick and gives rhythm/scannability. It should map to the concept (🛑 stop, ⏱️ cap,
+  ✅ check, 🧠 memory, 💬 CTA). One per tweet, no spam. The tweet-1 hook can stay clean.
+- Threads: tweet 1 is pure hook; link only in the last tweet.
+- New accounts: warm up 1–2 weeks posting manually before automating.
 
 **Instagram**
-- **Requiere media siempre** (no publica solo texto).
-- Carrusel = 2–10 imágenes.
-- Por API NO se puede: label "AI Generated", música de terceros, ni sticker de link en Stories (se agregan a mano en la app).
-- Cuenta debe ser Business o Creator.
+- **Always requires media** (won't publish text only).
+- Carousel = 2–10 images.
+- Via API you CANNOT: label "AI Generated", third-party music, or a link sticker in Stories (add them by hand in the app).
+- Account must be Business or Creator.
 
 **Facebook**
-- Requiere Page + `pageId`.
-- Videos siempre se publican como Reels (9:16).
-- Sin engagement bait tipo "comentá SÍ".
+- Requires a Page + `pageId`.
+- Videos always publish as Reels (9:16).
+- No engagement bait like "comment YES".
 
-## Warm-up de cuentas nuevas (crítico)
-Nunca conectar apps de terceros ni postear en masa en una cuenta recién creada (la marcan
-como bot). Calentar manual 1–2 semanas (4 para TikTok, 2 para Pinterest) antes de automatizar.
+## Warm-up for new accounts (critical)
+Never connect third-party apps or mass-post on a freshly created account (they flag it
+as a bot). Warm up manually 1–2 weeks (4 for TikTok, 2 for Pinterest) before automating.

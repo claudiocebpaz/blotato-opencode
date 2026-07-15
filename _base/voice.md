@@ -1,50 +1,50 @@
-# Voz global — reglas universales
+# Global voice — universal rules
 
-> Estas reglas aplican a TODAS las marcas. Cada marca sobrescribe idioma, tono y wedge
-> en su propio `brand-brief.md`. Lo de acá es el piso común de calidad.
+> These rules apply to ALL brands. Each brand overrides language, tone and wedge
+> in its own `brand-brief.md`. What's here is the common quality floor.
 
-## Reglas de escritura (siempre)
+## Writing rules (always)
 
-- Contracciones siempre en inglés ("don't", no "do not").
-- Voz activa, oraciones cortas.
-- Hablarle al lector de "vos/tú/you" (segunda persona).
-- Números como dígitos ("3 tips", no "tres tips").
-- **Nada de em dashes (—).** Usar puntos o comas.
-- Una sola idea concreta por post.
-- Específico > genérico. Datos, nombres, cifras reales.
-- Un solo CTA por post.
-- **Párrafos cortos (1–3 líneas) y white space.** Nada de bloques densos: en mobile se
-  scrollea y no se lee. El aire entre párrafos es parte del diseño.
-- **Ritmo de frases:** mezclar largas y cortas. Variar el largo crea cadencia (escaleras).
-- **Aportar valor primero.** Ser agente de cambio: el post lleva a un punto de reflexión que
-  motiva a mejorar algo, incluso antes de vender. Tácticas con resultado > autopromoción.
+- Always use contractions in English ("don't", not "do not").
+- Active voice, short sentences.
+- Address the reader as "you" (second person).
+- Numbers as digits ("3 tips", not "three tips").
+- **No em dashes (—).** Use periods or commas.
+- One single concrete idea per post.
+- Specific > generic. Real data, names, figures.
+- One single CTA per post.
+- **Short paragraphs (1–3 lines) and white space.** No dense blocks: on mobile people
+  scroll and don't read. The air between paragraphs is part of the design.
+- **Sentence rhythm:** mix long and short. Varying length creates cadence (ladders).
+- **Add value first.** Be a change agent: the post leads to a point of reflection that
+  motivates improving something, even before selling. Tactics with a result > self-promotion.
 
-## Palabras y muletillas prohibidas (delatan IA)
+## Banned words and crutches (they give away AI)
 
 delve, realm, unlock, tapestry, game-changer, revolutionize, elevate, harness,
 groundbreaking, cutting-edge, navigating, landscape, testament, boost, bustling,
-dive deep, embark, foster, seamless, robust, leverage (como verbo genérico),
+dive deep, embark, foster, seamless, robust, leverage (as a generic verb),
 "in conclusion", "in today's world", "in the ever-evolving", "it's important to note".
 
-Evitar también: just, very, really, actually, literally, basically (relleno).
+Also avoid: just, very, really, actually, literally, basically (filler).
 
-## Filtro de estilo
+## Style filter
 
-- Sin hashtags salvo donde la plataforma los premie (ver `platform-specs.md`).
-- Sin punto y coma.
-- **Emojis solo funcionales y con moderación** (✅ sí-hacer / ❌ no-hacer, señalar estructura,
-  dar ritmo), nunca decorativos ni en exceso. Permitidos en X y LinkedIn; en el resto, solo si
-  la marca lo indica. Un post limpio sin emojis siempre es válido.
-- Sin asteriscos ni acciones entre asteriscos.
-- Sin metáforas gastadas ni clichés.
-- Sin frases de relleno de apertura ("Let me tell you...", "Here's the thing...").
+- No hashtags except where the platform rewards them (see `platform-specs.md`).
+- No semicolons.
+- **Emojis only functional and in moderation** (✅ do / ❌ don't, mark structure,
+  give rhythm), never decorative or in excess. Allowed on X and LinkedIn; everywhere else, only if
+  the brand says so. A clean post with no emojis is always valid.
+- No asterisks or actions between asterisks.
+- No worn-out metaphors or clichés.
+- No filler opening phrases ("Let me tell you...", "Here's the thing...").
 
-## El hook manda
+## The hook rules
 
-El hook (primeras 3 palabras / primeros 5-10 segundos) es el **50% del resultado**.
-Antes de escribir el cuerpo, iterar el hook 3-5 veces. Ver `hooks.md`.
+The hook (first 3 words / first 5-10 seconds) is **50% of the result**.
+Before writing the body, iterate the hook 3-5 times. See `hooks.md`.
 
 ## "Do, Then Share"
 
-Contenido sobre resultados reales > posts genéricos. Si hay un resultado, cifra,
-historia o error real, va primero. Si no hay resultado todavía, se documenta el proceso.
+Content about real results > generic posts. If there's a result, figure,
+story or real mistake, it goes first. If there's no result yet, document the process.

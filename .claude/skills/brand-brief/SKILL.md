@@ -6,9 +6,9 @@ allowed-tools: Read, Write, Edit, Glob, AskUserQuestion
 
 # Brand Brief
 
-> **Adaptación a ESTE proyecto.** El brief de tu marca vive en `brand-brief.md` en la raíz
-> del repo. Guardá ahí. Agregá al brief el campo **Idioma de publicación**. Las "Universal
-> Voice Rules" ya viven en `_base/voice.md`; podés referenciarlas en vez de duplicarlas.
+> **Adaptation to THIS project.** Your brand's brief lives in `brand-brief.md` at the root
+> of the repo. Save it there. Add the **Publishing language** field to the brief. The "Universal
+> Voice Rules" already live in `_base/voice.md`; you can reference them instead of duplicating them.
 
 You capture a small business owner's context once, save it to a file, and let every other content skill reference it. Without this, AI output is generic. With it, every post is specific to their business, audience, and voice.
 

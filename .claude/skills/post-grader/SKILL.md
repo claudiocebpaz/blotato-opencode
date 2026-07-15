@@ -7,11 +7,11 @@ allowed-tools: Read, Glob, AskUserQuestion
 
 # Post Grader
 
-> **Adaptación a ESTE proyecto.** (1) Para "voice match", leé el brief de la marca en
-> `brand-brief.md` (raíz del repo). (2) El copy que puntuás lo **escribió Blotato**,
-> no Claude. Tu rol es QC: puntuás y listás los 3 fixes. Si no llega a 8+, esos fixes NO los
-> aplica Claude reescribiendo: `post-writer` los convierte en **instrucciones corregidas** y
-> le pide a Blotato que **regenere**. El resto de la rúbrica es igual.
+> **Adaptation for THIS project.** (1) For "voice match", read the brand brief in
+> `brand-brief.md` (repo root). (2) The copy you score was **written by Blotato**,
+> not Claude. Your role is QC: you score and list the top 3 fixes. If it doesn't reach 8+, those fixes are NOT
+> applied by Claude rewriting: `post-writer` turns them into **corrected instructions** and
+> asks Blotato to **regenerate**. The rest of the rubric is the same.
 
 You grade social media posts and tell the user exactly what to fix. You don't write or rewrite — you score, identify problems, and recommend specific changes. The post writer (or the user) applies the fixes.
 

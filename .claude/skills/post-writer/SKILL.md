@@ -7,35 +7,35 @@ allowed-tools: Read, Write, Edit, Glob, AskUserQuestion
 
 # Post Writer
 
-> **⚠️ CAMBIO DE ROL EN ESTE PROYECTO: el que ESCRIBE es Blotato, no Claude.**
-> Claude NO redacta el copy. Este skill arma las **instrucciones** y le pide a Blotato que
-> genere el texto (vía `source-resolutions-v3` / `python scripts/blotato.py write`). Toda la
-> metodología de abajo (11 patrones de hook, reglas de CTA, reglas de voz, constraints por
-> plataforma) NO es lo que Claude escribe: es lo que Claude **le instruye a Blotato**.
+> **⚠️ ROLE CHANGE IN THIS PROJECT: the one who WRITES is Blotato, not Claude.**
+> Claude does NOT write the copy. This skill builds the **instructions** and asks Blotato to
+> generate the text (via `source-resolutions-v3` / `python scripts/blotato.py write`). All the
+> methodology below (11 hook patterns, CTA rules, voice rules, per-platform constraints)
+> is NOT what Claude writes: it's what Claude **instructs Blotato** to do.
 >
-> **Flujo:**
-> 1. Recibís `[topic] [plataforma]`. Leé `brand-brief.md` (idioma + wedge) +
->    `_base/` (voice, hooks, platform-specs). El brief vive en la raíz del repo.
->    **Si la plataforma es LinkedIn, cargá también `_base/linkedin-craft.md`** e incluí sus
->    reglas (formato mobile-first, "texto oculto", hacks de ritmo, storytelling 8 pasos) en
->    las instrucciones a Blotato.
-> 2. **Armá el bloque de instrucciones** para Blotato, incluyendo: idioma de la marca,
->    plataforma + su largo/constraints, "hook-first" y qué patrón de hook usar (de `viral-hooks`),
->    la voz + el **wedge** de la marca, el tipo de CTA que premia la plataforma, y las reglas de
->    voz (`_base/voice.md`: sin em dashes, sin palabras prohibidas, hashtags correctos).
-> 3. **Llamá a Blotato para que escriba:**
+> **Flow:**
+> 1. You receive `[topic] [plataforma]`. Read `brand-brief.md` (language + wedge) +
+>    `_base/` (voice, hooks, platform-specs). The brief lives at the root of the repo.
+>    **If the platform is LinkedIn, also load `_base/linkedin-craft.md`** and include its
+>    rules (mobile-first format, "hidden text", rhythm hacks, 8-step storytelling) in
+>    the instructions to Blotato.
+> 2. **Build the instruction block** for Blotato, including: the brand's language,
+>    platform + its length/constraints, "hook-first" and which hook pattern to use (from `viral-hooks`),
+>    the brand's voice + **wedge**, the CTA type the platform rewards, and the voice
+>    rules (`_base/voice.md`: no em dashes, no banned words, correct hashtags).
+> 3. **Call Blotato to write:**
 >    ```bash
->    python scripts/blotato.py write --brief "<topic + ángulo>" --instructions "<el bloque del paso 2>"
+>    python scripts/blotato.py write --brief "<topic + angle>" --instructions "<the step-2 block>"
 >    ```
->    (o el equivalente MCP `blotato_create_source` si es más conveniente — ver `_base/transport.md`).
->    Usá `--research` si conviene que Blotato investigue la web primero.
-> 4. Tomá el `content` que devolvió Blotato y pasalo a **post-grader**.
-> 5. Si el grader puntúa < 8, **NO reescribas vos**: corregí las **instrucciones** (hook más
->    fuerte, más específico, etc.) y volvé a llamar a `write`. Loop hasta 8+.
-> 6. Guardá el copy aprobado en `posts/YYYY-MM-DD-<slug>-<plataforma>.md`. Si lleva
->    visual, indicá qué template para `visual-producer`.
+>    (or the MCP equivalent `blotato_create_source` if more convenient — see `_base/transport.md`).
+>    Use `--research` if it's worth having Blotato research the web first.
+> 4. Take the `content` Blotato returned and pass it to **post-grader**.
+> 5. If the grader scores < 8, **do NOT rewrite it yourself**: fix the **instructions** (stronger
+>    hook, more specific, etc.) and call `write` again. Loop until 8+.
+> 6. Save the approved copy in `posts/YYYY-MM-DD-<slug>-<platform>.md`. If it carries
+>    a visual, indicate which template for `visual-producer`.
 >
-> El resto del documento describe la metodología que va DENTRO de las instrucciones a Blotato.
+> The rest of the document describes the methodology that goes INSIDE the instructions to Blotato.
 
 You take an idea and a platform, and return a finished post: hook, body, CTA. The output is graded and improved before the user sees it. They get a polished draft, not a first draft.
 

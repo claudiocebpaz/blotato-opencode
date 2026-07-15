@@ -1,16 +1,16 @@
-# Hooks — apunta al skill viral-hooks
+# Hooks — points to the viral-hooks skill
 
-> La librería completa de hooks (100 frameworks en 13 categorías, ordenados por techo de
-> viralidad) vive en el skill **`viral-hooks`** (`.claude/skills/viral-hooks/SKILL.md`).
-> Esa es la fuente de verdad. Este archivo existe solo para que el contexto de `_base/`
-> sepa dónde buscar y no duplicar (evitar drift).
+> The full hook library (100 frameworks across 13 categories, sorted by virality
+> ceiling) lives in the **`viral-hooks`** skill (`.claude/skills/viral-hooks/SKILL.md`).
+> That's the source of truth. This file exists only so the `_base/` context knows
+> where to look and doesn't duplicate (to avoid drift).
 
-## Regla que sí vive acá (resumen operativo)
-- El hook es el **50%** del score. Se escribe primero y se reescribe 3-5 veces.
-- **Test de las 3 primeras palabras:** ¿generan curiosidad/sorpresa/tensión? Si arranca con
-  relleno ("In this post", "Today I want") → reescribir. La palabra más fuerte va primero.
-- Categorías de mayor techo (preferir si dudás): **The Receipt** (prueba/números),
-  **Contrarian/Myth-Buster** (usa el wedge de la marca), **Stolen Lessons** (táctica copiada).
-- Variar categorías a lo largo de un batch para que no lea formulaico.
+## The rule that does live here (operational summary)
+- The hook is **50%** of the score. Write it first and rewrite it 3-5 times.
+- **First-3-words test:** do they spark curiosity/surprise/tension? If it opens with
+  filler ("In this post", "Today I want") → rewrite. The strongest word goes first.
+- Highest-ceiling categories (prefer if in doubt): **The Receipt** (proof/numbers),
+  **Contrarian/Myth-Buster** (uses the brand's wedge), **Stolen Lessons** (a copied tactic).
+- Vary categories across a batch so it doesn't read formulaic.
 
-Para elegir y completar un hook concreto: invocar el skill `viral-hooks` con `[topic] [plataforma]`.
+To pick and fill in a concrete hook: invoke the `viral-hooks` skill with `[topic] [platform]`.

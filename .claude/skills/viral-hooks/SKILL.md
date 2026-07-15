@@ -7,9 +7,9 @@ allowed-tools: Read, Write, Edit, Glob, AskUserQuestion
 
 # Viral Hooks
 
-> **Adaptación a ESTE proyecto.** Cuando busques el wedge para las categorías
-> polarizantes, leelo del brief de tu marca en `brand-brief.md`. Este skill es la fuente de
-> verdad de hooks del repo; `_base/hooks.md` solo apunta acá.
+> **Adaptation for THIS project.** When you look for the wedge for the polarizing
+> categories, read it from your brand brief in `brand-brief.md`. This skill is the source of
+> truth for hooks in the repo; `_base/hooks.md` just points here.
 
 The hook is the first 5 seconds of any post or video. It decides whether the reader stops or scrolls. If you can hold 50% retention through the first 6 seconds of a short-form video, it has a real shot at going viral. The hook carries that weight, so it gets written first and rewritten until it earns the read.
 

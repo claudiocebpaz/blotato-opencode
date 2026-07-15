@@ -7,7 +7,7 @@
 ## Brand
 - **Name:** <YOUR BRAND>
 - **What you sell / do:** <one line>
-- **Language:** <e.g. English / Español> (all copy is written natively in this language)
+- **Language:** <e.g. English / Spanish> (all copy is written natively in this language)
 
 ## Audience
 - **Who buys / follows:** <role, industry, stage>

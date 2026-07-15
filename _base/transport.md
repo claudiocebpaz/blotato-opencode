@@ -1,38 +1,38 @@
-# Política de transporte — API / MCP / navegador
+# Transport policy — API / MCP / browser
 
-> Cómo hablar con Blotato. Regla general: **usá lo más conveniente, no te quedes limitado
-> por el API.** Hay 3 vías, en orden de preferencia.
+> How to talk to Blotato. General rule: **use whatever is most convenient, don't stay limited
+> by the API.** There are 3 paths, in order of preference.
 
-## Tier 1 — API directa (default)
-`scripts/blotato.py` contra `https://backend.blotato.com/v2` con `BLOTATO_API_KEY`.
-- **Cuándo:** por defecto, sobre todo en Claude Code (TUI/VS Code). Rápido y portable.
-- **Requiere:** la key en `.env` (raíz del proyecto).
+## Tier 1 — Direct API (default)
+`scripts/blotato.py` against `https://backend.blotato.com/v2` with `BLOTATO_API_KEY`.
+- **When:** by default, especially in Claude Code (TUI/VS Code). Fast and portable.
+- **Requires:** the key in `.env` (project root).
 
-## Tier 2 — MCP (cuando convenga o falte la key)
-Las herramientas `blotato_*` del MCP (ya conectado en Cowork/Desktop).
-- **Cuándo:**
-  - No hay `BLOTATO_API_KEY` configurada (el MCP no la necesita, usa su propia auth).
-  - Es más cómodo (algunas tools poléan internamente, ej. `blotato_create_source`).
-  - Estás en Cowork/Desktop donde el MCP ya está a mano.
-- **Nota:** API y MCP exponen **las mismas** capacidades (mapeo 1:1). El MCP no desbloquea
-  nada que el API no tenga; es solo otra vía de acceso. Elegí por conveniencia, no por poder.
+## Tier 2 — MCP (when convenient or the key is missing)
+The MCP's `blotato_*` tools (already connected in Cowork/Desktop).
+- **When:**
+  - There's no `BLOTATO_API_KEY` configured (the MCP doesn't need it, it uses its own auth).
+  - It's more convenient (some tools poll internally, e.g. `blotato_create_source`).
+  - You're in Cowork/Desktop where the MCP is already at hand.
+- **Note:** API and MCP expose **the same** capabilities (1:1 mapping). The MCP doesn't unlock
+  anything the API doesn't have; it's just another access path. Choose by convenience, not by power.
 
-Mapeo rápido API ↔ MCP:
+Quick API ↔ MCP mapping:
 `/users/me`→`blotato_get_user` · `/users/me/accounts`→`blotato_list_accounts` ·
 `/posts`→`blotato_create_post` · `/source-resolutions-v3`→`blotato_create_source` ·
 `/videos/from-templates`→`blotato_create_visual` · `/schedules`→`blotato_list_schedules` ·
-`/schedule/slots`→(vía API) · analytics/comments/messages→`blotato_*` equivalentes.
+`/schedule/slots`→(via API) · analytics/comments/messages→`blotato_*` equivalents.
 
-## Tier 3 — Navegador (solo para lo que es 100% app-only)
-Manejar la app de Blotato (my.blotato.com) con Claude in Chrome / computer-use.
-- **Cuándo:** SOLO para features que ni API ni MCP exponen. En concreto:
-  - El **AI Agent / Remix** pulido de la app (mejor calidad de escritura que `source-resolutions`).
-  - Configurar Brand Kits nativos, o cualquier ajuste de UI.
-- **Cuándo NO:** para publicar/agendar/generar visuales/escribir por instrucciones → eso ya
-  está en Tier 1/2, no bajes a navegador.
-- **Ojo:** es más lento y frágil. Última opción, con aprobación del usuario.
+## Tier 3 — Browser (only for what is 100% app-only)
+Drive the Blotato app (my.blotato.com) with Claude in Chrome / computer-use.
+- **When:** ONLY for features that neither API nor MCP expose. Specifically:
+  - The app's polished **AI Agent / Remix** (better writing quality than `source-resolutions`).
+  - Configuring native Brand Kits, or any UI tweak.
+- **When NOT:** for publishing/scheduling/generating visuals/writing from instructions → that's already
+  in Tier 1/2, don't drop down to the browser.
+- **Watch out:** it's slower and more fragile. Last resort, with the user's approval.
 
-## Regla de decisión
-1. ¿Lo puede hacer el API? → Tier 1 (o Tier 2 si es más cómodo o falta la key).
-2. ¿Es una capacidad que ni API ni MCP tienen (ej. calidad del AI Agent de la app)? → Tier 3.
-3. Nunca rechaces una tarea "porque el API no puede": subí de tier hasta resolverla.
+## Decision rule
+1. Can the API do it? → Tier 1 (or Tier 2 if it's more convenient or the key is missing).
+2. Is it a capability that neither API nor MCP have (e.g. the app's AI Agent quality)? → Tier 3.
+3. Never refuse a task "because the API can't": go up a tier until you solve it.

@@ -270,8 +270,7 @@ terms; this repo credits it rather than redistributing it.
 
 ---
 
-> **A note on language.** This README and `ANALYSIS.md` are in English. The internal orchestration
-> guides (`CLAUDE.md`, the `SKILL.md` files, `_base/`) are in Spanish — the author's working
-> language, model-facing not user-facing. Generated **post copy** comes out in whatever language
-> you set in `brand-brief.md`. No secrets are committed: the root `.env` is gitignored,
+> **A note on language.** Everything in this repo — docs, orchestration guides (`CLAUDE.md`), the
+> `SKILL.md` files, and `_base/` — is in English. Generated **post copy** comes out in whatever
+> language you set in `brand-brief.md`. No secrets are committed: the root `.env` is gitignored,
 > `opencode.json` uses `{env:BLOTATO_API_KEY}`, and the only placeholder is in `.env.example`.

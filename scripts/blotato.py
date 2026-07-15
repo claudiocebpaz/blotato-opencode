@@ -99,10 +99,10 @@ def _extract_url(item):
 
 
 _LOG_HEADER = (
-    "# Posts publicados — log en vivo\n\n"
-    "> Lo escribe `scripts/blotato.py post --log <este archivo>` al agendar/publicar.\n"
-    "> URL vacía = agendado, todavía no vivo. Backfill con `post-status --id <id> --log <archivo>`.\n\n"
-    "| Fecha (UTC) | Plataforma | Estado | Agendado | URL en vivo | submissionId | Borrador |\n"
+    "# Published posts — live log\n\n"
+    "> Written by `scripts/blotato.py post --log <this file>` on scheduling/publishing.\n"
+    "> Empty URL = scheduled, not live yet. Backfill with `post-status --id <id> --log <file>`.\n\n"
+    "| Date (UTC) | Platform | Status | Scheduled | Live URL | submissionId | Draft |\n"
     "|---|---|---|---|---|---|---|\n"
 )
 
