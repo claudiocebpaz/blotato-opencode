@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--
+  Plantilla de carrusel BRANDED (genérica). Dark theme + placeholder de logo + acento.
+  Cada <div class="slide"> = 1 imagen (1080x1350). Editá el contenido de los slides;
+  el "chrome" (logo, pill, kicker, footer, watermark) ya está estilado.
+  Patrones de slide incluidos: título, cuerpo, numerado (01/02/03), cierre con highlight.
+  COLORES/FUENTE/LOGO son placeholders: reemplazalos con los de `branding.md` de tu marca.
+  (paleta en :root, fuente en @import + font-family, y el `{b} your brand` del logo).
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  /* Placeholder palette — swap these for your brand's palette (branding.md). */
+  :root{ --bg:#0B0F1A; --panel:#131823; --border:#1F2937; --text:#FFFFFF; --muted:#8A93A3; --accent:#4F7CFF; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#000;}
+  .slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;
+    font-family:'Inter',-apple-system,'Helvetica Neue',Arial,sans-serif;color:var(--text);
+    padding:88px 92px;display:flex;flex-direction:column;}
+  .wm{position:absolute;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:900px;line-height:1;
+    color:rgba(79,124,255,.05);right:-140px;bottom:-360px;z-index:0;user-select:none;pointer-events:none;}
+  .wm.tl{right:auto;bottom:auto;left:-180px;top:-260px;color:rgba(255,255,255,.025);}
+  .inner{position:relative;z-index:1;display:flex;flex-direction:column;height:100%;}
+  .head{display:flex;justify-content:space-between;align-items:center;}
+  .logo{font-size:34px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:14px;}
+  .logo .mark{font-family:'JetBrains Mono',monospace;font-weight:500;border:2px solid var(--accent);
+    border-radius:12px;padding:2px 12px 4px;font-size:30px;}
+  .logo .mark b{color:var(--accent);font-weight:500;}
+  .logo .mark i{color:var(--text);font-style:normal;}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:20px;letter-spacing:3px;text-transform:uppercase;
+    color:#C7CDD9;border:1.5px solid var(--border);border-radius:999px;padding:12px 26px;}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .kicker{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:26px;font-weight:500;
+    letter-spacing:4px;text-transform:uppercase;margin-bottom:40px;}
+  h1{font-size:92px;font-weight:800;line-height:1.02;letter-spacing:-2.5px;}
+  h1 .c{color:var(--accent);}
+  h1 .hl{background:var(--accent);color:var(--bg);padding:0 16px;border-radius:6px;}
+  .sub{font-size:37px;line-height:1.42;color:var(--muted);margin-top:44px;font-weight:400;max-width:860px;}
+  .sub b{color:var(--text);font-weight:600;}
+  .sub.accent{color:var(--accent);font-weight:500;}
+  .items{display:flex;flex-direction:column;gap:52px;margin-top:8px;}
+  .item{display:flex;gap:40px;align-items:flex-start;}
+  .item .num{font-size:62px;font-weight:800;color:var(--accent);line-height:.9;min-width:110px;letter-spacing:-2px;}
+  .item .t{font-size:44px;font-weight:700;letter-spacing:-1px;margin-bottom:14px;}
+  .item .d{font-size:29px;line-height:1.4;color:var(--muted);max-width:720px;}
+  .foot{border-top:1.5px solid rgba(255,255,255,.09);padding-top:30px;display:flex;
+    justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;}
+  .foot .tag{color:var(--accent);font-size:23px;letter-spacing:3px;text-transform:uppercase;}
+  .foot .pg{color:#5B6472;font-size:24px;letter-spacing:2px;}
+</style>
+</head>
+<body>
+
+<!-- SLIDE título -->
+<div class="slide">
+  <div class="wm">&#125;</div>
+  <div class="inner">
+    <div class="head">
+      <div class="logo"><span class="mark"><b>{</b><i>b</i><b>}</b></span><span>your brand</span></div>
+      <div class="pill">Topic / Pill</div>
+    </div>
+    <div class="body">
+      <div class="kicker">// Kicker line</div>
+      <h1>Your hook goes <span class="c">here.</span></h1>
+      <div class="sub">One-line promise or tension. Put the <b>sharpest idea</b> up front.</div>
+    </div>
+    <div class="foot"><span class="tag">{ your tagline }</span><span class="pg">01 / 04</span></div>
+  </div>
+</div>
+
+<!-- SLIDE cuerpo -->
+<div class="slide">
+  <div class="wm tl">&#123;</div>
+  <div class="inner">
+    <div class="head">
+      <div class="logo"><span class="mark"><b>{</b><i>b</i><b>}</b></span><span>your brand</span></div>
+      <div class="pill">01 · Section</div>
+    </div>
+    <div class="body">
+      <div class="kicker">// Section kicker</div>
+      <h1>The setup. Then the <span class="c">turn.</span></h1>
+      <div class="sub">Body copy for the idea. Keep it concrete. Use <b>bold</b> for the words that carry the point.<br><br>Close the slide with a takeaway.</div>
+    </div>
+    <div class="foot"><span class="tag">{ your tagline }</span><span class="pg">02 / 04</span></div>
+  </div>
+</div>
+
+<!-- SLIDE numerado -->
+<div class="slide">
+  <div class="inner">
+    <div class="head">
+      <div class="logo"><span class="mark"><b>{</b><i>b</i><b>}</b></span><span>your brand</span></div>
+      <div class="pill">02 · List</div>
+    </div>
+    <div class="body">
+      <div class="kicker">// A numbered breakdown</div>
+      <div class="items">
+        <div class="item"><div class="num">01</div><div><div class="t">First point</div><div class="d">One sentence that explains the point without filler.</div></div></div>
+        <div class="item"><div class="num">02</div><div><div class="t">Second point</div><div class="d">Keep each item parallel in shape and length.</div></div></div>
+        <div class="item"><div class="num">03</div><div><div class="t">Third point</div><div class="d">Three items read cleaner than five on a single slide.</div></div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="tag">{ your tagline }</span><span class="pg">03 / 04</span></div>
+  </div>
+</div>
+
+<!-- SLIDE cierre -->
+<div class="slide">
+  <div class="wm">&#125;</div>
+  <div class="inner">
+    <div class="head">
+      <div class="logo"><span class="mark"><b>{</b><i>b</i><b>}</b></span><span>your brand</span></div>
+      <div class="pill">03 · Bottom Line</div>
+    </div>
+    <div class="body">
+      <div class="kicker">// The point</div>
+      <h1>Restate the idea. <span class="hl">Land it.</span></h1>
+      <div class="sub accent">End on a question or a CTA that invites a reply.</div>
+    </div>
+    <div class="foot"><span class="tag">{ your cta }</span><span class="pg">04 / 04</span></div>
+  </div>
+</div>
+
+</body>
+</html>

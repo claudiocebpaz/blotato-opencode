@@ -1,0 +1,15 @@
+# Secrets — NEVER commit
+scripts/.env
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# OS / editor
+.DS_Store
+*.log
