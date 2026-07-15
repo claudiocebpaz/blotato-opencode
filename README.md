@@ -88,6 +88,27 @@ opencode: it's a single system where you pick the best price/quality model for e
   or a set time). The `post` command refuses to run without a scheduling flag.
 - **Quality control by the orchestrator** — it verifies each returned piece against the repo's
   guidelines (voice, platform rules, hook, score) before it reaches you for approval.
+- **Multiple accounts on the same network** — one install can post to several accounts/pages on the
+  same platform (see below).
+
+## Multiple accounts on the same network
+
+You are not limited to one account per platform. List every account and page in `_base/accounts.md`
+(get the IDs with `python3 scripts/blotato.py accounts`), and the orchestrator books each destination
+separately:
+
+- **A profile** → `--account <ACCOUNT_ID>`
+- **A page** → `--account <ACCOUNT_ID> --page <PAGE_ID>`
+
+The `social-manager` skill already treats LinkedIn as up to **two destinations** — a personal
+profile and a Company Page — and runs one pipeline instance per destination, in parallel. The same
+pattern covers two X accounts, two LinkedIn accounts, an Instagram business profile, and so on.
+
+> **Real-world example.** You can run one install for a **personal brand + a company**: both a
+> personal and a company **LinkedIn**, and a personal and a company **X** account — four
+> destinations. Give each voice its own brief (keep a `brand-brief.md` per voice — e.g.
+> first-person for you, brand voice for the company) so the same topic goes out sounding right on
+> each account, not copy-pasted.
 
 ## Repository structure
 
@@ -261,6 +282,11 @@ Built on **Blotato's official content pack** (the 7-skill base: content-coach, b
 viral-hooks, post-writer, post-grader, repurpose, post-scheduler). Blotato does the heavy lifting —
 copy generation, visuals, source extraction, and the calendar — through its API.
 → **[blotato.com](https://blotato.com)**
+
+> **On the visuals.** The brand kit and the visual assets in this repo — the hero banner, the two
+> architecture diagrams, and the branded-carousel scaffold (`scripts/carousel/`) — were designed
+> **once, with Claude**. They're a one-time starting point: regenerate or restyle them anytime from
+> the HTML sources in `docs/diagrams/` and `scripts/carousel/`.
 
 ## License
 
