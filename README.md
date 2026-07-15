@@ -1,3 +1,17 @@
+<div align="center">
+
+<img src="docs/banner.png" alt="Blotato Multi-Agent Kit" width="880">
+
+&nbsp;
+
+![Runtime](https://img.shields.io/badge/runtime-Claude%20Code%20%2B%20opencode-4f46e5?style=flat-square)
+![Built on](https://img.shields.io/badge/built%20on-Blotato-f59e0b?style=flat-square)
+![Models](https://img.shields.io/badge/models-MiniMax%20%C2%B7%20GLM%20%C2%B7%20Claude-7c3aed?style=flat-square)
+![Publishing](https://img.shields.io/badge/publishing-human%20approved-e11d48?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)
+
+</div>
+
 # Blotato Multi-Agent Kit
 
 A **multi-agent social-media system** built on top of [Blotato](https://blotato.com)'s official
@@ -247,6 +261,12 @@ Built on **Blotato's official content pack** (the 7-skill base: content-coach, b
 viral-hooks, post-writer, post-grader, repurpose, post-scheduler). Blotato does the heavy lifting —
 copy generation, visuals, source extraction, and the calendar — through its API.
 → **[blotato.com](https://blotato.com)**
+
+## License
+
+[MIT](LICENSE) © 2026 Claudio Ceballos Paz ([hashdog.com](https://hashdog.com)). The wrapper —
+orchestration, adapters, and scripts — is MIT. Blotato's official pack remains under Blotato's own
+terms; this repo credits it rather than redistributing it.
 
 ---
 

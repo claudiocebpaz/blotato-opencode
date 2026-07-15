@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0b1020; }
+  #canvas {
+    width:1280px; height:430px; position:relative; overflow:hidden;
+    background:radial-gradient(1200px 500px at 18% -10%, #312e81 0%, transparent 55%),
+               radial-gradient(1000px 500px at 100% 120%, #1e3a8a 0%, transparent 50%),
+               linear-gradient(135deg,#0b1020 0%,#111827 100%);
+    font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:#e5e7eb; padding:56px 64px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .glow { position:absolute; border-radius:50%; filter:blur(2px); opacity:.5; }
+  .mono { position:absolute; right:-40px; top:-70px; font-family:ui-monospace,monospace;
+    font-size:340px; font-weight:700; color:rgba(129,140,248,.06); line-height:1; user-select:none; }
+  .eyebrow { font-size:15px; font-weight:800; letter-spacing:3px; text-transform:uppercase;
+    color:#a5b4fc; position:relative; }
+  .title { font-size:70px; font-weight:850; letter-spacing:-2px; line-height:1; margin-top:14px;
+    color:#fff; position:relative; }
+  .title .g { background:linear-gradient(90deg,#818cf8,#c084fc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .tag { font-size:23px; color:#c7cbd6; margin-top:20px; max-width:840px; line-height:1.45; position:relative; font-weight:500; }
+  .tag b { color:#fff; font-weight:700; }
+  .pipe { font-family:ui-monospace,monospace; color:#a5b4fc; font-weight:700; }
+  .chips { display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; position:relative; }
+  .chip { font-size:16px; font-weight:700; padding:9px 18px; border-radius:10px;
+    border:1.5px solid rgba(148,163,184,.35); color:#e5e7eb; background:rgba(255,255,255,.04); }
+  .chip.hl { border-color:#818cf8; color:#c7d2fe; background:rgba(99,102,241,.14); }
+  .chip .s { color:#818cf8; }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="mono">&#123;&#125;</div>
+  <div class="eyebrow">Open framework · Multi-runtime · Human-approved</div>
+  <div class="title">Blotato <span class="g">Multi-Agent Kit</span></div>
+  <div class="tag">A multi-agent content team on top of <b>Blotato</b>. One orchestrator directs specialist agents
+    through <span class="pipe">write → grade → visual → schedule</span> — and <b>nothing publishes without you</b>.</div>
+  <div class="chips">
+    <span class="chip hl">Claude Code</span>
+    <span class="chip hl">opencode</span>
+    <span class="chip"><span class="s">★</span> MiniMax</span>
+    <span class="chip"><span class="s">★</span> GLM</span>
+    <span class="chip">Blotato REST</span>
+  </div>
+</div>
+</body>
+</html>
